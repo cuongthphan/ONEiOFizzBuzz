@@ -9,8 +9,9 @@ import java.util.stream.IntStream;
 public class FizzBuzzService {
 
     public String generateString(Integer number) {
-
-        return IntStream.rangeClosed(1, number).mapToObj(i -> getStringForNumber(i)).collect(Collectors.joining(", "));
+        return IntStream.rangeClosed(1, number)
+            .mapToObj(i -> getStringForNumber(i))
+            .collect(Collectors.joining(", "));
     }
 
     private String getStringForNumber(Integer number) {
