@@ -8,12 +8,12 @@ import java.util.stream.IntStream;
 @Service
 public class FizzBuzzService {
 
-    public String generate(Integer number) {
+    public String generateString(Integer number) {
 
-        return IntStream.rangeClosed(1, number).mapToObj(i -> getString(i)).collect(Collectors.joining(", "));
+        return IntStream.rangeClosed(1, number).mapToObj(i -> getStringForNumber(i)).collect(Collectors.joining(", "));
     }
 
-    public String getString(Integer number) {
+    private String getStringForNumber(Integer number) {
         return number % 3 == 0 ?
             (number % 5 == 0 ? "FizzBuzz" : "Fizz") :
             (number % 5 == 0 ? "Buzz" : Integer.toString(number));
