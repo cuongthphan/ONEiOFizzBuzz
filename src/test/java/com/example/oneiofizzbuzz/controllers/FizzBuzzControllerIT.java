@@ -25,7 +25,7 @@ public class FizzBuzzControllerIT {
     public void testGetFizzBuzz() throws Exception {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/fizzbuzz")
-            .param("number", "15"))
+                .param("number", "15"))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -33,5 +33,15 @@ public class FizzBuzzControllerIT {
         String expected = "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz";
 
         assertEquals(expected, resultStr);
+    }
+
+    @Test
+    public void testGetFizzBuzzInvalidParam() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/fizzbuzz")
+                .param("number", "-5"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
     }
 }
