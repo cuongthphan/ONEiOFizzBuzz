@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestController
 @Validated
 @RequestMapping("/api/fizzbuzz")
 public class FizzBuzzController {
 
-    Logger logger = LoggerFactory.getLogger(FizzBuzzController.class);
+    private static Logger logger = LoggerFactory.getLogger(FizzBuzzController.class);
 
     private final FizzBuzzService fizzBuzzService;
 
@@ -30,7 +31,7 @@ public class FizzBuzzController {
 
     @GetMapping
     @ResponseBody
-    public String getBuzzFizz(@RequestParam() @Min(value = 1, message = "Number must be positive") Integer number) {
+    public String getBuzzFizz(@RequestParam() @Min(value = 1, message = "Must be a positive integer") Integer number) {
         logger.debug("Get fizzbuzz string for number {}", number);
         return fizzBuzzService.generateString(number);
     }
@@ -41,7 +42,7 @@ public class FizzBuzzController {
         return new ResponseEntity<>(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler({ ConstraintViolationException.class, MethodArgumentTypeMismatchException.class })
     public final ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

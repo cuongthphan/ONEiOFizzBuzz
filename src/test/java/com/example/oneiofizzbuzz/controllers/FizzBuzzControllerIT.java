@@ -43,5 +43,11 @@ public class FizzBuzzControllerIT {
                 .param("number", "-5"))
             .andExpect(status().isBadRequest())
             .andReturn();
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/fizzbuzz")
+                .param("number", "abc"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
     }
 }
