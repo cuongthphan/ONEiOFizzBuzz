@@ -2,12 +2,14 @@
 
 Back-end for FizzBuzz assignment
 
+https://oneiofizzbuzz.herokuapp.com/
+
 ## API
 
 ```http
 GET /api/fizzbuzz?number=[NUMBER]
 ```
-Number has to be positive
+Number has to be a positive integer
 
 ## Response
 
